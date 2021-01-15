@@ -11,21 +11,35 @@ arguments:
       hint: Path to store output artifacts in default object storage (i.e s3). In CVAT, this parameter will be pre-populated.
       displayName: Workflow output path
       visibility: internal
+      
+    - name: val-split
+      value: 0.2
+      displayName: Validation split size
+      type: input.number
+      visibility: public
+      hint: Enter validation set size. (0, 1)
+      
+    - name: num-augmentation-cycles
+      value: 1
+      displayName: Number of augmentation cycles
+      type: input.number
+      visibility: public
+      hint: Number of augmentation cycles, zero means no data augmentation
 
     - name: preprocessing-parameters
       value: |-
         RandomBrightnessContrast:
-          p: 0.2
+            p: 0.2
         GaussianBlur:
-          p: 0.3
+            p: 0.3
         GaussNoise:
-          p: 0.4
+            p: 0.4
         RandomBrightnessContrast:
-          p: 0.3
+            p: 0.3
         HorizontalFlip:
-          p: 0.5
+            p: 0.5
         VerticalFlip:
-          p: 0.3
+            p: 0.3
       displayName: Preprocessing parameters
       visibility: public
       type: textarea.textarea
@@ -62,7 +76,9 @@ templates:
           cd /mnt/src/preprocessing && \
           python main.py \
             --data_aug_params="{{workflow.parameters.preprocessing-parameters}}" \
-            --format="tfrecord"
+            --format="tfrecord" \
+            --val_split={{workflow.parameters.val-split}} \
+            --aug_steps={{workflow.parameters.num-augmentation-cycles}}
       command:
         - sh
         - -c
@@ -92,7 +108,7 @@ templates:
           optional: true
           path: /mnt/output
           s3:
-            key: '{{workflow.namespace}}/processed-data/{{workflow.name}}'
+            key: '{{workflow.namespace}}/{{workflow.parameters.cvat-output-path}}/{{workflow.name}}'
 volumeClaimTemplates:
   - metadata:
       name: data
