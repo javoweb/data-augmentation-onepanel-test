@@ -25,7 +25,7 @@ def main(args: argparse.Namespace) -> int:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Data splitting and augmentation pipeline')
-    parser.add_argument('--input_folder', default='/mnt/data/')
+    parser.add_argument('--input_folder', default='/mnt/data/datasets/')
     parser.add_argument('--output_folder', default='/mnt/output/')
     parser.add_argument('--annotations_filename', default='instances_default.json')
     parser.add_argument('--val_split', default=0.2, type=float)
