@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Not code folders and files
+annotations/
+data/
+eval/
+images/
+train/
+.vscode
