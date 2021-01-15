@@ -16,7 +16,7 @@ def main(args: argparse.Namespace) -> int:
     train_set = data_augmentation(
         args.data_aug_params, 
         train_set, 
-        data_folder=args.output_folder+'train/',
+        data_folder=args.output_folder+'train_set/',
         aug_steps= args.aug_steps
     )
 

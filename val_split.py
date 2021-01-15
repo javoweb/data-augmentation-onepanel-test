@@ -42,7 +42,7 @@ def split_dataset(dataset_name: str='instances_default.json', val_split: float=0
             img_sufix = old_filename.split('.')[-1]
             new_image['file_name'] = '{:04d}.'.format(image_id)+img_sufix
             val_set['images'].append(new_image)
-            shutil.copyfile(input_path+'images/'+old_filename,output_path+'eval/images/'+new_image['file_name'])
+            shutil.copyfile(input_path+'images/'+old_filename,output_path+'eval_set/images/'+new_image['file_name'])
         else:
             image_id = len(train_set['images'])
             new_image['id'] = image_id
@@ -56,7 +56,7 @@ def split_dataset(dataset_name: str='instances_default.json', val_split: float=0
             img_sufix = old_filename.split('.')[-1]
             new_image['file_name'] = '{:04d}.'.format(image_id)+img_sufix
             train_set['images'].append(new_image)
-            shutil.copyfile(input_path+'images/'+old_filename,output_path+'train/images/'+new_image['file_name'])
+            shutil.copyfile(input_path+'images/'+old_filename,output_path+'train_set/images/'+new_image['file_name'])
 
     save_datasets(output_path, train_set, val_set)
 
@@ -70,12 +70,12 @@ def split_dataset(dataset_name: str='instances_default.json', val_split: float=0
 
 def create_split_folders(output_path: str) -> None:
     directories = [
-        os.path.dirname(output_path+'train/'),
-        os.path.dirname(output_path+'train/images/'),
-        os.path.dirname(output_path+'train/annotations/'),
-        os.path.dirname(output_path+'eval/'),
-        os.path.dirname(output_path+'eval/images/'),
-        os.path.dirname(output_path+'eval/annotations/')
+        os.path.dirname(output_path+'train_set/'),
+        os.path.dirname(output_path+'train_set/images/'),
+        os.path.dirname(output_path+'train_set/annotations/'),
+        os.path.dirname(output_path+'eval_set/'),
+        os.path.dirname(output_path+'eval_set/images/'),
+        os.path.dirname(output_path+'eval_set/annotations/')
     ]
     for directory in directories:
         try:
