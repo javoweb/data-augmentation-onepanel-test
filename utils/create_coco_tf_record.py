@@ -38,7 +38,7 @@ from pycocotools import mask
 import tensorflow as tf
 
 import multiprocessing as mp
-from . import tfrecord_lib
+import tfrecord_lib
 
 
 flags.DEFINE_boolean(
@@ -278,14 +278,16 @@ def generate_annotations(images, image_dir,
   """Generator for COCO annotations."""
 
   for image in images:
+    object_annotation = None
+    caption_annotation = None
     if img_to_obj_annotation:
       object_annotation = img_to_obj_annotation.get(image['id'], None)
 
     if img_to_caption_annotation:
-      caption_annotaion = img_to_caption_annotation.get(image['id'], None)
+      caption_annotation = img_to_caption_annotation.get(image['id'], None)
 
     yield (image, image_dir, object_annotation, id_to_name_map,
-           caption_annotaion, include_masks)
+           caption_annotation, include_masks)
 
 
 def _create_tf_record_from_coco_annotations(images_info_file,
