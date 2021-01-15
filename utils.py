@@ -1,7 +1,6 @@
 import json
 import copy
 import cv2
-import os
 import subprocess
 from typing import Any
 
@@ -57,7 +56,6 @@ def export_dataset(format: str=None, output_folder: str='') -> None:
         export_to_tfrecord(output_folder, 'eval')
 
 def export_to_tfrecord(output_folder: str, mode: str) -> None:
-    #os.chdir('utils/')
     return_value = subprocess.call([
         'python',
         'utils/create_coco_tf_record.py',
