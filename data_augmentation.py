@@ -8,7 +8,7 @@ from yaml.loader import FullLoader
 from inspect import getmembers
 from utils import load_image, save_image, get_annotation_from_image_id
 
-def data_augmentation(aug_params: str, dataset: dict, data_folder: str='', aug_steps: int=1) -> tuple:
+def data_augmentation(aug_params: str, dataset: dict, data_folder: str='', aug_steps: int=1) -> None:
     if len(aug_params) > 1 and aug_steps >= 1:
         print('\n Performing Data Augmentation')
         aug_dataset = copy.deepcopy(dataset)

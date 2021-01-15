@@ -13,14 +13,14 @@ def main(args: argparse.Namespace) -> int:
         output_path=args.output_folder
     )
 
-    train_set = data_augmentation(
+    data_augmentation(
         args.data_aug_params, 
         train_set, 
         data_folder=args.output_folder+'train_set/',
         aug_steps= args.aug_steps
     )
 
-    export_dataset(args.format, args.output_folder)
+    export_dataset(train_set, args.format, args.output_folder)
     
     return 0
 

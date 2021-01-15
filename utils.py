@@ -4,6 +4,8 @@ import cv2
 import subprocess
 from typing import Any
 
+from cv2 import data
+
 def save_datasets(output_path, train_set, val_set):
     with open(output_path+'train_set/annotations/instances_default.json','w') as f:
         json.dump(train_set,f)
@@ -50,10 +52,11 @@ def bbox_albumentations2coco(bboxes:list, img: Any) ->list:
         coco_boxes.append([x_min, y_min, width, height])
     return coco_boxes
 
-def export_dataset(format: str=None, output_folder: str='') -> None:
+def export_dataset(dataset: dict, format: str=None, output_folder: str='') -> None:
     if format == 'tfrecord':
         export_to_tfrecord(output_folder, 'train')
         export_to_tfrecord(output_folder, 'eval')
+        export_label_map(output_folder, dataset)
 
 def export_to_tfrecord(output_folder: str, mode: str) -> None:
     return_value = subprocess.call([
@@ -65,3 +68,9 @@ def export_to_tfrecord(output_folder: str, mode: str) -> None:
     ])
     if return_value != 0:
         raise RuntimeError('Failed to save {} dataset'.format(mode))
+
+def export_label_map(output_folder: str, dataset: dict):
+    if 'categories' in dataset:
+        with open(output_folder+'label_map.pbtxt', 'w', encoding='utf8') as f:
+            for category in dataset['categories']:
+                f.write("item {{\n\tid: {}\n\tname: '{}'\n}}\n\n".format(category['id'], category['name']))
