@@ -59,8 +59,8 @@ def export_to_tfrecord(output_folder: str, mode: str) -> None:
     return_value = subprocess.call([
         'python',
         'utils/create_coco_tf_record.py',
-        '--image_dir={}'.format(output_folder+'{}/images/'.format(mode)),
-        '--object_annotations_file={}'.format(output_folder+'{}/annotations/instances_default.json'.format(mode)),
+        '--image_dir={}'.format(output_folder+'{}_set/images/'.format(mode)),
+        '--object_annotations_file={}'.format(output_folder+'{}_set/annotations/instances_default.json'.format(mode)),
         '--output_file_prefix={}'.format(output_folder+'tfrecord/{}.tfrecord'.format(mode))
     ])
     if return_value != 0:
