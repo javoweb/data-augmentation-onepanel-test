@@ -16,7 +16,8 @@ def main(args: argparse.Namespace) -> int:
     train_set = data_augmentation(
         args.data_aug_params, 
         train_set, 
-        data_folder=args.output_folder+'train/'
+        data_folder=args.output_folder+'train/',
+        aug_steps= args.aug_steps
     )
 
     export_dataset(args.format, args.output_folder)
@@ -29,6 +30,7 @@ if __name__ == "__main__":
     parser.add_argument('--output_folder', default='/mnt/output/')
     parser.add_argument('--annotations_filename', default='instances_default.json')
     parser.add_argument('--val_split', default=0.2, type=float)
+    parser.add_argument('--aug_steps', default=1, type=int)
     parser.add_argument('--data_aug_params', default='')
     parser.add_argument('--format', default=None)
     args = parser.parse_args()
