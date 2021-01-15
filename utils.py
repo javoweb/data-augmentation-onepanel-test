@@ -5,9 +5,9 @@ import subprocess
 from typing import Any
 
 def save_datasets(output_path, train_set, val_set):
-    with open(output_path+'train/annotations/instances_default.json','w') as f:
+    with open(output_path+'train_set/annotations/instances_default.json','w') as f:
         json.dump(train_set,f)
-    with open(output_path+'eval/annotations/instances_default.json','w') as f:
+    with open(output_path+'eval_set/annotations/instances_default.json','w') as f:
         json.dump(val_set,f)
 
 def get_annotation_from_image_id(dataset: dict, image_id: int) -> dict:
